@@ -14,4 +14,18 @@ export const authOptions = {
             },
         }),
     ],
+    callbacks: {
+        jwt({token, user}: any) {
+            if (user) {
+                // User is available during sign-in
+                token.id = user.id;
+            }
+            return token;
+        },
+        // Modifies the session object
+        session({session, token}: any) {
+            session.user.id = token.id;
+            return session;
+        },
+    },
 };
