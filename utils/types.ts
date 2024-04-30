@@ -4,7 +4,7 @@ export type JobType = {
     id: string;
     createdAt: Date;
     updatedAt: Date;
-    clerkId: string;
+    authId: string;
     position: string;
     company: string;
     location: string;
