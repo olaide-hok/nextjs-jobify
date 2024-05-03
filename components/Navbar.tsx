@@ -2,7 +2,7 @@
 import {useState} from 'react';
 import Link from 'next/link';
 import LinksDropdown from './LinksDropdown';
-import {useSession, signIn, signOut} from 'next-auth/react';
+import {useSession, signOut} from 'next-auth/react';
 import {UserAvatar} from '@/components/UserAvatar';
 import ModeToggle from './ThemeToggle';
 
@@ -42,7 +42,7 @@ function Navbar() {
                         <button
                             onClick={() => {
                                 setIsProfileMenuOpen(false);
-                                signOut();
+                                signOut({callbackUrl: '/'});
                             }}
                             className="block px-4 py-2 text-sm text-gray-700"
                             role="menuitem"
