@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Logo from '../assets/logo.svg';
 import LandingImg from '../assets/main.svg';
-import {Button} from '@/components/ui/button';
-import Link from 'next/link';
+import SignInButton from '@/components/SignInButton';
 
 export default function Home() {
     return (
@@ -21,9 +20,7 @@ export default function Home() {
                         post-ironic venmo, quinoa lo-fi tote bag adaptogen
                         everyday carry meggings +1 brunch narwhal.
                     </p>
-                    <Button asChild className="mt-4">
-                        <Link href="/add-job">Get Started</Link>
-                    </Button>
+                    <SignInButton />
                 </div>
                 <Image
                     src={LandingImg}
