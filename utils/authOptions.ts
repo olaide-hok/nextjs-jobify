@@ -1,6 +1,11 @@
 import Google from 'next-auth/providers/google';
+import {PrismaAdapter} from '@auth/prisma-adapter';
+import {PrismaClient} from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const authOptions = {
+    adapter: PrismaAdapter(prisma),
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -15,16 +20,8 @@ export const authOptions = {
         }),
     ],
     callbacks: {
-        jwt({token, user}: any) {
-            if (user) {
-                // User is available during sign-in
-                token.id = user.id;
-            }
-            return token;
-        },
-        // Modifies the session object
-        session({session, token}: any) {
-            session.user.id = token.id;
+        async session({session}: any): Promise<any> {
+            // 1. return session
             return session;
         },
     },
