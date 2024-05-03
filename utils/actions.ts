@@ -1,5 +1,6 @@
 'use server';
 
+import {redirect} from 'next/navigation';
 import prisma from './db';
 import {JobType, CreateAndEditJobType, createAndEditJobSchema} from './types';
 import {Prisma} from '@prisma/client';
@@ -103,4 +104,26 @@ export async function deleteJobAction(
     } catch (error) {
         return null;
     }
+}
+
+export async function getSingleJobAction(
+    id: string,
+    userId: string
+): Promise<JobType | null> {
+    let job: JobType | null = null;
+
+    try {
+        job = await prisma.job.findUnique({
+            where: {
+                id,
+                authId: userId,
+            },
+        });
+    } catch (error) {
+        job = null;
+    }
+    if (!job) {
+        redirect('/jobs');
+    }
+    return job;
 }
