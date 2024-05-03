@@ -12,6 +12,44 @@ export type JobType = {
     mode: string;
 };
 
+export type UserType = {
+    id: string;
+    name: string;
+    email: string;
+    emailVerified: Date;
+    image: string;
+    accounts: Account[];
+    sessions: Session[];
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export type Account = {
+    userId: string;
+    type: string;
+    provider: string;
+    providerAccountId: string;
+    refresh_token: string;
+    access_token: string;
+    expires_at: number;
+    token_type: string;
+    scope: string;
+    id_token: string;
+    session_state: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user: UserType;
+};
+
+export type Session = {
+    sessionToken: string;
+    userId: string;
+    expires: Date;
+    user: UserType;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
 export enum JobStatus {
     Pending = 'pending',
     Interview = 'interview',
