@@ -127,3 +127,24 @@ export async function getSingleJobAction(
     }
     return job;
 }
+
+export async function updateJobAction(
+    id: string,
+    values: CreateAndEditJobType,
+    userId: string
+): Promise<JobType | null> {
+    try {
+        const job: JobType = await prisma.job.update({
+            where: {
+                id,
+                authId: userId,
+            },
+            data: {
+                ...values,
+            },
+        });
+        return job;
+    } catch (error) {
+        return null;
+    }
+}
