@@ -3,12 +3,9 @@ import JobCard from './JobCard';
 import {useSearchParams} from 'next/navigation';
 import {getAllJobsAction} from '@/utils/actions';
 import {useQuery} from '@tanstack/react-query';
-import {useSession} from 'next-auth/react';
 
 function JobsList() {
     const searchParams = useSearchParams();
-    const {data: dataa} = useSession();
-    const userId = dataa?.user?.id! || '';
 
     const search = searchParams.get('search') || '';
     const jobStatus = searchParams.get('jobStatus') || 'all';
@@ -22,7 +19,6 @@ function JobsList() {
                 search,
                 jobStatus,
                 page: pageNumber,
-                userId,
             }),
     });
     const jobs = data?.jobs || [];
