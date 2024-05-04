@@ -5,12 +5,15 @@ import prisma from './db';
 import {JobType, CreateAndEditJobType, createAndEditJobSchema} from './types';
 import {Prisma} from '@prisma/client';
 import dayjs from 'dayjs';
+import {auth} from '@/auth';
 
 export async function createJobAction(
-    values: CreateAndEditJobType,
-    userId: string
+    values: CreateAndEditJobType
 ): Promise<JobType | null> {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000)); //To view loading spinner.
+    const session = await auth();
+    const userId = session?.user?.id || '';
+
     try {
         createAndEditJobSchema.parse(values);
         const job: JobType = await prisma.job.create({
@@ -32,7 +35,6 @@ type GetAllJobsActionTypes = {
     jobStatus?: string;
     page?: number;
     limit?: number;
-    userId: string;
 };
 
 export async function getAllJobsAction({
@@ -40,13 +42,14 @@ export async function getAllJobsAction({
     jobStatus,
     page = 1,
     limit = 10,
-    userId,
 }: GetAllJobsActionTypes): Promise<{
     jobs: JobType[];
     count: number;
     page: number;
     totalPages: number;
 }> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
     try {
         let whereClause: Prisma.JobWhereInput = {
             authId: userId,
@@ -89,10 +92,9 @@ export async function getAllJobsAction({
     }
 }
 
-export async function deleteJobAction(
-    id: string,
-    userId: string
-): Promise<JobType | null> {
+export async function deleteJobAction(id: string): Promise<JobType | null> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
     try {
         const job: JobType = await prisma.job.delete({
             where: {
@@ -106,10 +108,10 @@ export async function deleteJobAction(
     }
 }
 
-export async function getSingleJobAction(
-    id: string,
-    userId: string
-): Promise<JobType | null> {
+export async function getSingleJobAction(id: string): Promise<JobType | null> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
+
     let job: JobType | null = null;
 
     try {
@@ -130,9 +132,10 @@ export async function getSingleJobAction(
 
 export async function updateJobAction(
     id: string,
-    values: CreateAndEditJobType,
-    userId: string
+    values: CreateAndEditJobType
 ): Promise<JobType | null> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
     try {
         const job: JobType = await prisma.job.update({
             where: {
@@ -149,11 +152,14 @@ export async function updateJobAction(
     }
 }
 
-export async function getStatsAction(userId: string): Promise<{
+export async function getStatsAction(): Promise<{
     pending: number;
     interview: number;
     declined: number;
 }> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
+
     // just to show Skeleton
     // await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
@@ -183,9 +189,12 @@ export async function getStatsAction(userId: string): Promise<{
     }
 }
 
-export async function getChartsDataAction(
-    userId: string
-): Promise<Array<{date: string; count: number}>> {
+export async function getChartsDataAction(): Promise<
+    Array<{date: string; count: number}>
+> {
+    const session = await auth();
+    const userId = session?.user?.id || '';
+
     const sixMonthsAgo = dayjs().subtract(6, 'month').toDate();
     try {
         const jobs = await prisma.job.findMany({
