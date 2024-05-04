@@ -2,16 +2,13 @@ import JobsList from '@/components/JobsList';
 import SearchForm from '@/components/SearchForm';
 import {dehydrate, HydrationBoundary, QueryClient} from '@tanstack/react-query';
 import {getAllJobsAction} from '@/utils/actions';
-import {auth} from '@/auth';
 
 async function AllJobsPage() {
-    const session = await auth();
-    const userId = session?.user?.id || '';
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
         queryKey: ['jobs', '', 'all', 1],
-        queryFn: () => getAllJobsAction({userId}),
+        queryFn: () => getAllJobsAction({}),
     });
 
     return (
