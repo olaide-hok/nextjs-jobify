@@ -22,24 +22,20 @@ import {
 } from '@/utils/actions';
 import {useToast} from '@/components/ui/use-toast';
 import {useRouter} from 'next/navigation';
-import {useSession} from 'next-auth/react';
 
 function EditJobForm({jobId}: {jobId: string}) {
-    const {data: dataa} = useSession();
-    const userId = dataa?.user?.id || '';
-
     const queryClient = useQueryClient();
     const {toast} = useToast();
     const router = useRouter();
 
     const {data} = useQuery({
         queryKey: ['job', jobId],
-        queryFn: () => getSingleJobAction(jobId, userId),
+        queryFn: () => getSingleJobAction(jobId),
     });
 
     const {mutate, isPending} = useMutation({
         mutationFn: (values: CreateAndEditJobType) =>
-            updateJobAction(jobId, values, userId),
+            updateJobAction(jobId, values),
         onSuccess: (data) => {
             if (!data) {
                 toast({
