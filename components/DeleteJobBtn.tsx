@@ -4,17 +4,13 @@ import JobInfo from './JobInfo';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {deleteJobAction} from '@/utils/actions';
 import {useToast} from '@/components/ui/use-toast';
-import {useSession} from 'next-auth/react';
 
 function DeleteJobBtn({id}: {id: string}) {
-    const {data} = useSession();
-    const userId = data?.user?.id || '';
-
     const {toast} = useToast();
 
     const queryClient = useQueryClient();
     const {mutate, isPending} = useMutation({
-        mutationFn: (id: string) => deleteJobAction(id, userId),
+        mutationFn: (id: string) => deleteJobAction(id),
         onSuccess: (data) => {
             if (!data) {
                 toast({
