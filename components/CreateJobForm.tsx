@@ -18,12 +18,8 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 import {createJobAction} from '@/utils/actions';
 import {useToast} from '@/components/ui/use-toast';
 import {useRouter} from 'next/navigation';
-import {useSession} from 'next-auth/react';
 
 function CreateJobForm() {
-    const {data} = useSession();
-    const userId = data?.user?.id || '';
-
     // 1. Define your form.
     const form = useForm<CreateAndEditJobType>({
         resolver: zodResolver(createAndEditJobSchema),
@@ -40,8 +36,7 @@ function CreateJobForm() {
     const {toast} = useToast();
     const router = useRouter();
     const {mutate, isPending} = useMutation({
-        mutationFn: (values: CreateAndEditJobType) =>
-            createJobAction(values, userId),
+        mutationFn: (values: CreateAndEditJobType) => createJobAction(values),
         onSuccess: (data) => {
             if (!data) {
                 toast({
