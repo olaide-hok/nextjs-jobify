@@ -10,7 +10,7 @@ async function JobDetailPage({params}: {params: {id: string}}) {
 
     await queryClient.prefetchQuery({
         queryKey: ['job', params.id],
-        queryFn: () => getSingleJobAction(params.id, userId),
+        queryFn: () => getSingleJobAction(params.id),
     });
 
     return (
