@@ -15,10 +15,11 @@ export default function Home() {
                         job <span className="text-primary">tracking</span> app
                     </h1>
                     <p className="leading-loose max-w-md mt-4 ">
-                        I am baby wayfarers hoodie next level taiyaki brooklyn
-                        cliche blue bottle single-origin coffee chia. Aesthetic
-                        post-ironic venmo, quinoa lo-fi tote bag adaptogen
-                        everyday carry meggings +1 brunch narwhal.
+                        Welcome to Jobify, where job hunting meets simplicity
+                        and success. Say goodbye to scattered spreadsheets and
+                        endless tabs. With our intuitive job tracking app,
+                        you'll stay organized, motivated, and ahead of the game.
+                        Start your journey to career greatness today!
                     </p>
                     <SignInButton />
                 </div>
