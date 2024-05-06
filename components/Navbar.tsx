@@ -1,6 +1,5 @@
 'use client';
 import {useState} from 'react';
-import Link from 'next/link';
 import LinksDropdown from './LinksDropdown';
 import {useSession, signOut} from 'next-auth/react';
 import {UserAvatar} from '@/components/UserAvatar';
@@ -8,7 +7,6 @@ import ModeToggle from './ThemeToggle';
 
 function Navbar() {
     const session = useSession();
-    console.log(session);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
     return (
@@ -28,17 +26,6 @@ function Navbar() {
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="user-menu-button">
-                        {/* <Link
-                    href="/profile"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="user-menu-item-0"
-                    onClick={() => {
-                        setIsProfileMenuOpen(false)
-                    }}>
-                    Your Profile
-                </Link> */}
                         <button
                             onClick={() => {
                                 setIsProfileMenuOpen(false);
