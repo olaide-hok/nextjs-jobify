@@ -17,8 +17,8 @@ export default function Home() {
                     <p className="leading-loose max-w-md mt-4 ">
                         Welcome to Jobify, where job hunting meets simplicity
                         and success. Say goodbye to scattered spreadsheets and
-                        endless tabs. With our intuitive job tracking app,
-                        you'll stay organized, motivated, and ahead of the game.
+                        endless tabs. With our intuitive job tracking app, you
+                        will stay organized, motivated, and ahead of the game.
                         Start your journey to career greatness today!
                     </p>
                     <SignInButton />
